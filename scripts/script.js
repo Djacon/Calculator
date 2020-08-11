@@ -1,25 +1,13 @@
 inputCalc = document.querySelector('.account')
 resultCalc = document.querySelector('.result')
 
-function input(i) {
-	inputCalc.value = inputCalc.value + i
-}
+num1 = ''
+num2 = ''
+value_of = ''
+is_new = false
 
-function result() {
-	e = eval(inputCalc.value)
-	
-	if (e == undefined) {
-		resultCalc.value = '0'
-		inputCalc.value = '0'
-	}
-	else if (e == Infinity || e == -Infinity) { 
-		resultCalc.value = '0'
-		inputCalc.value = 'Dividing by zero is not allowed'
-	} else {
-		console.log(e)
-		resultCalc.value = e
-		inputCalc.value = e
-	}
+function input(i) {
+	inputCalc.value += i
 }
 
 function backspace() {
@@ -29,4 +17,49 @@ function backspace() {
 function reset() {
 	inputCalc.value = ''
 	resultCalc.value = ''
+	value_of = ''
+	num1 = ''
+	num2 = ''
+}
+
+function percent() {
+	answer = inputCalc.value / 100
+	inputCalc.value = answer
+	resultCalc.value = answer
+}
+
+function save_it(value) {
+	if (num1 == '')
+		num1 = Number(inputCalc.value)
+	inputCalc.value = ''
+	value_of = value
+	is_new = true
+}
+
+function result() {
+	ans = ''
+	if (is_new || num2 == ''){
+		num2 = Number(inputCalc.value)
+		is_new = false
+	}
+
+	if (value_of == '+')
+		ans = num1 + num2
+	else if (value_of == '-')
+		ans = num1 - num2
+	else if (value_of == '*')
+		ans = num1 * num2
+	else if (value_of == '/')
+		if (num2 == 0)
+			ans = 'Ты тут самый умный штоли?'
+		else
+			ans = num1 / num2
+	else if (num2 == 0)
+		ans = ''
+	else
+		ans = num2
+
+	inputCalc.value = ans
+	resultCalc.value = ans
+	num1 = ans
 }
