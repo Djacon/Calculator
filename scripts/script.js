@@ -23,7 +23,8 @@ function reset() {
 }
 
 function percent() {
-	answer = inputCalc.value / 100
+	number = (num1 == '') ? 1 : num1
+	answer = number * inputCalc.value / 100
 	inputCalc.value = answer
 	resultCalc.value = answer
 }
